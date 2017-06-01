@@ -15,6 +15,26 @@ Keep in mind that IP addresses and binaries are fixed, you have to change them t
 
 Please note that you can access the Delivery Server only by name (etc/hosts) and it´s public IP from external.
 
+## Logins
+
+You can specifiy the account details for the Chef Server and the Chef Automate Enterprise Name in the account.yml.
+
+* chef-server
+  * username = delivery
+  * password = master
+
+* Automate Server
+Look at the vagrant output for the admin and builder password.
+
+e.g.
+```
+==> Automate Server: Created enterprise: cjohannsen
+==> Automate Server: Admin username: admin
+==> Automate Server: Admin password: jcImgI3kf0aS3iBeaD6ggYw5abyqoNB2DYw=
+==> Automate Server: Builder Password: Mf7R4Pg5i9wWktGM/oJGRdAIW7/WgSXSpF4=
+==> Automate Server: Web login: https://automate/e/cjohannsen/
+```
+
 ## Comments
 
 Feel free to commit.

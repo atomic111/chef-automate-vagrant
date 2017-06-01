@@ -1,0 +1,9 @@
+automate:
+  enterprise-name: cjohannsen
+
+chef-server:
+  user-name: delivery
+  first-name: delivery
+  last-name: user
+  email: delivery@user.de
+  password: master

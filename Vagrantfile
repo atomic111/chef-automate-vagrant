@@ -3,6 +3,7 @@
 
 require "yaml"
 settings = YAML::load_file "binaries.yml"
+accounts = YAML::load_file "account.yml"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/centos-6.7"
@@ -28,7 +29,7 @@ Vagrant.configure("2") do |config|
     chef_server.vm.provision "shell", inline: "sudo chef-server-ctl install chef-manage --path #{settings['chef-manage']['tmp-path']}"
     chef_server.vm.provision "shell", inline: "sudo chef-server-ctl reconfigure"
     chef_server.vm.provision "shell", inline: "sudo chef-manage-ctl reconfigure --accept-license"
-    chef_server.vm.provision "shell", inline: "sudo chef-server-ctl user-create delivery delivery user delivery@user.de 'master' --filename delivery.user"
+    chef_server.vm.provision "shell", inline: "sudo chef-server-ctl user-create #{accounts['chef-server']['user-name']} #{accounts['chef-server']['first-name']} #{accounts['chef-server']['last-name']} #{accounts['chef-server']['email']} #{accounts['chef-server']['password']} --filename delivery.user"
     chef_server.vm.provision "shell", inline: "sudo scp delivery.user /vagrant/"
     chef_server.vm.provision "shell", inline: "sudo chef-server-ctl org-create deliveryorg 'my delivery organization' --filename ~/deliveryorg-validator.pem -a delivery"
     chef_server.vm.provider :virtualbox do |vb|
@@ -65,11 +66,11 @@ Vagrant.configure("2") do |config|
     automate.vm.provision "file", source: settings["automate"]["package"], destination: settings["automate"]["tmp-path"]
     automate.vm.provision "file", source: "delivery.license", destination: "~/delivery.license"
     automate.vm.provision "shell", inline: "rpm -Uvh #{settings['automate']['tmp-path']}"
-    automate.vm.provision "shell", inline: "sudo automate-ctl setup --license /home/vagrant/delivery.license --key /vagrant/delivery.user --server-url https://chefserver/organizations/deliveryorg --enterprise=cjohannsen --fqdn=automate --no-build-node --no-configure"
+    automate.vm.provision "shell", inline: "sudo automate-ctl setup --license /home/vagrant/delivery.license --key /vagrant/delivery.user --server-url https://chefserver/organizations/deliveryorg --enterprise=#{accounts['automate']['enterprise-name']} --fqdn=automate --no-build-node --no-configure"
     automate.vm.provision "shell", inline: "sudo automate-ctl reconfigure"
-    automate.vm.provision "shell", inline: "sudo automate-ctl create-enterprise cjohannsen --ssh-pub-key-file=/etc/delivery/builder_key.pub"
+    automate.vm.provision "shell", inline: "sudo automate-ctl create-enterprise #{accounts['automate']['enterprise-name']} --ssh-pub-key-file=/etc/delivery/builder_key.pub"
     # runner needs enterprise to install
-    automate.vm.provision "shell", inline: "sudo automate-ctl install-runner buildnode vagrant -P vagrant -I /vagrant/#{settings['chefdk']['package']} -y -e cjohannsen"
+    automate.vm.provision "shell", inline: "sudo automate-ctl install-runner buildnode vagrant -P vagrant -I /vagrant/#{settings['chefdk']['package']} -y -e #{accounts['automate']['enterprise-name']}"
     automate.vm.provision "shell", inline: "sudo automate-ctl reconfigure"
     automate.vm.provider :virtualbox do |vb|
       vb.memory = 4096

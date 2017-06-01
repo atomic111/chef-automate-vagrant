@@ -1,19 +1,19 @@
 chef-server:
-  package: chef-server-core-12.13.0-1.el6.x86_64.rpm
-  tmp-path: /tmp/chef-server-core-12.13.0-1.el6.x86_64.rpm
+  package: chef-server-core-12.15.7-1.el6.x86_64.rpm
+  tmp-path: /tmp/chef-server-core-12.15.7-1.el6.x86_64.rpm
 
 chef-manage:
-  package: chef-manage-2.4.4-1.el6.x86_64.rpm
-  tmp-path: /tmp/chef-manage-2.4.4-1.el6.x86_64.rpm
+  package: chef-manage-2.5.3-1.el6.x86_64.rpm
+  tmp-path: /tmp/chef-manage-2.5.3-1.el6.x86_64.rpm
 
 compliance:
-  package: chef-compliance-1.7.7-1.el6.x86_64.rpm
-  tmp-path: /tmp/chef-compliance-1.7.7-1.el6.x86_64.rpm
+  package: chef-compliance-1.10.2-1.el6.x86_64.rpm
+  tmp-path: /tmp/chef-compliance-1.10.2-1.el6.x86_64.rpm
 
 chefdk:
-  package: chefdk-1.2.22-1.el6.x86_64.rpm
-  tmp-path: /tmp/chefdk-1.2.22-1.el6.x86_64.rpm
+  package: chefdk-1.4.3-1.el6.x86_64.rpm
+  tmp-path: /tmp/chefdk-1.4.3-1.el6.x86_64.rpm
 
 automate:
-  package: automate-0.7.61-1.el6.x86_64.rpm
-  tmp-path: /tmp/automate-0.7.61-1.el6.x86_64.rpm
+  package: automate-0.8.5-1.el6.x86_64.rpm
+  tmp-path: /tmp/automate-0.8.5-1.el6.x86_64.rpm
